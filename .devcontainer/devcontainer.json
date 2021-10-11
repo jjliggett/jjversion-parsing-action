@@ -1,0 +1,12 @@
+{
+	"name": "jjversion-parsing-action-dc",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+	"runArgs": ["--init"],
+	"settings": {},
+	"extensions": [
+		"eamodio.gitlens",
+	],
+	"remoteUser": "vscode"
+}
