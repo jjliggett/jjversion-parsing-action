@@ -1,0 +1,36 @@
+name: devcontainer-ci
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - LICENSE.md
+      - 'docs/**'
+      - '.github/workflows/codeql-analysis.yaml'
+      - '.github/dependabot.yaml'
+  pull_request:
+    paths-ignore:
+      - README.md
+      - LICENSE.md
+      - 'docs/**'
+      - '.github/workflows/codeql-analysis.yaml'
+      - '.github/dependabot.yaml'
+jobs:
+  devcontainer-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: Setup Docker BuildKit
+        uses: docker/setup-buildx-action@v1
+      - name: Build and run dev container task
+        uses: stuartleeks/devcontainer-build-run@v0.1
+        with:
+          imageName: ghcr.io/jjliggett/jjversion-parsing-action-dc
+          runCmd: |
+            echo "Starting"
+            node --version
+            npm --version
+            ncc version
+            make build-dist
+          push: never
